@@ -1,27 +1,31 @@
-import { EVENTS } from "../const/events";
+import { sleep } from "../helpers/date";
 
-export function getAllEvents() {
-  return EVENTS;
-}
+export const getAllEvents = async () => {
+  const response = await fetch("http://localhost:5000/events");
 
-export function getFeaturedEvents() {
-  return EVENTS.filter((event) => event.isFeatured);
-}
+  return await response.json();
+};
 
-export function getFilteredEvents(dateFilter) {
-  console.log(dateFilter);
-  const { year, month } = dateFilter;
+export const getFeaturedEvents = async () => {
+  const response = await fetch("http://localhost:5000/events");
 
-  let filteredEvents = EVENTS.filter((event) => {
+  return (await response.json()).filter((event) => event.isFeatured === true);
+};
+
+export const getFilteredEvents = async ({ year, month }) => {
+  const response = await fetch("http://localhost:5000/events");
+
+  return (await response.json()).filter((event) => {
     const eventDate = new Date(event.date);
+
     return (
       eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
     );
   });
+};
 
-  return filteredEvents;
-}
+export const getEventById = async (id) => {
+  const response = await fetch("http://localhost:5000/events");
 
-export function getEventById(id) {
-  return EVENTS.find((event) => event.id === id);
-}
+  return (await response.json()).find((event) => event.id === id);
+};

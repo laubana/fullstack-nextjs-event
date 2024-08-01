@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./EventItem.module.css";
 import { convertDate } from "../../helpers/date";
 import Link from "../Link/Link";
@@ -9,7 +10,7 @@ export default ({ event }) => {
 
   return (
     <li className={styles.item}>
-      <img src={event.image} alt={event.title} />
+      <Image src={event.image} alt={event.title} width={240} height={160} />
       <div className={styles.content}>
         <div className={styles.summary}>
           <h2>{event.title}</h2>

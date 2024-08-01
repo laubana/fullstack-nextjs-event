@@ -1,31 +1,52 @@
-import { useRouter } from "next/router";
+import Head from "next/head";
 import EventContent from "../../../components/EventContent/EventContent";
 import EventLogistics from "../../../components/EventLogistics/EventLogistics";
 import EventSummary from "../../../components/EventSummary/EventSummary";
 import Loader from "../../../components/Loader/Loader";
-import { getEventById } from "../../../services/events";
+import { getEventById, getFeaturedEvents } from "../../../services/events";
 
-export default () => {
-  const router = useRouter();
+export const getStaticProps = async (context) => {
+  const { params } = context;
 
-  const eventId = router.query.eventId;
+  const { eventId } = params;
 
-  if (!eventId) {
-    return <Loader />;
+  const event = await getEventById(eventId);
+
+  if (!event) {
+    return { notFound: true };
   }
 
-  const event = getEventById(eventId);
+  return { props: { event }, revalidate: 30 };
+};
+
+export const getStaticPaths = async () => {
+  const events = await getFeaturedEvents();
+
+  return {
+    paths: events.map((event) => ({ params: { eventId: event.id } })),
+    fallback: true,
+  };
+};
+
+export default (props) => {
+  const { event } = props;
 
   if (!event) {
     return (
-      <div className="center">
-        <p>No event found.</p>
-      </div>
+      <>
+        <Head>
+          <title>Loading...</title>
+        </Head>
+        <Loader />
+      </>
     );
   }
 
   return (
     <>
+      <Head>
+        <title>{event.title}</title>
+      </Head>
       <EventSummary summary={event.title} />
       <EventLogistics event={event} />
       <EventContent>

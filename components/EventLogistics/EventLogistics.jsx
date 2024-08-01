@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { IoCalendarClearOutline, IoLocationOutline } from "react-icons/io5";
 import styles from "./EventLogistics.module.css";
 import LogisticsItem from "../LogisticsItem/LogisticsItem";
@@ -9,7 +10,7 @@ export default ({ event }) => {
   return (
     <section className={styles.logistics}>
       <div className={styles.image}>
-        <img src={event.image} alt={event.title} />
+        <Image src={event.image} alt={event.title} width={320} height={320} />
       </div>
       <ul className={styles.list}>
         <LogisticsItem icon={() => <IoCalendarClearOutline />}>
