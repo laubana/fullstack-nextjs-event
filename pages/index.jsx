@@ -1,4 +1,5 @@
 import EventList from "../components/EventList/EventList";
+import NewsLetterRegistration from "../components/NewsLetterRegistration/NewsLetterRegistration";
 import { getFeaturedEvents } from "../services/events";
 
 export const getStaticProps = async () => {
@@ -7,12 +8,11 @@ export const getStaticProps = async () => {
   return { props: { events }, revalidate: 600 };
 };
 
-export default (props) => {
-  const { events } = props;
-
+export default ({ events }) => {
   return (
     <>
       <div>
+        <NewsLetterRegistration />
         <EventList events={events} />
       </div>
     </>

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Comments from "../../../components/Comments/Comments";
 import EventContent from "../../../components/EventContent/EventContent";
 import EventLogistics from "../../../components/EventLogistics/EventLogistics";
 import EventSummary from "../../../components/EventSummary/EventSummary";
@@ -52,6 +53,7 @@ export default (props) => {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   );
 };
