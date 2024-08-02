@@ -1,5 +1,3 @@
-import { sleep } from "../helpers/date";
-
 export const getAllEvents = async () => {
   const response = await fetch("http://localhost:5000/events");
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./CommentList.module.css";
+import Loader from "../Loader/Loader";
 
 export default ({ eventId }) => {
   const [comments, setComments] = useState();
@@ -18,17 +19,25 @@ export default ({ eventId }) => {
 
   return (
     <>
-      {comments && (
-        <ul className={styles.comments}>
-          {comments.map((comment) => (
-            <li key={comment.id}>
-              <p>{comment.content}</p>
-              <div>
-                By <address>{comment.name}</address>
-              </div>
-            </li>
-          ))}
-        </ul>
+      {comments ? (
+        <>
+          {0 < comments.length ? (
+            <ul className={styles.comments}>
+              {comments.map((comment) => (
+                <li key={comment.id}>
+                  <p>{comment.content}</p>
+                  <div>
+                    By <address>{comment.name}</address>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No comments found.</p>
+          )}
+        </>
+      ) : (
+        <Loader />
       )}
     </>
   );

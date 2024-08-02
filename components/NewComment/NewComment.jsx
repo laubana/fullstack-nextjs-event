@@ -1,11 +1,16 @@
 import { useState } from "react";
 import styles from "./NewComment.module.css";
+import { useToastContext } from "../../context/ToastContext";
 
 export default ({ eventId }) => {
+  const { show } = useToastContext();
+
   const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    show({ message: "", status: "pending", title: "Pending..." });
 
     const formData = new FormData(event.target);
 
@@ -22,21 +27,38 @@ export default ({ eventId }) => {
       !name ||
       name.trim() === ""
     ) {
+      show({ message: "", status: "error", title: "Error!" });
       setIsError(true);
       return;
     }
 
-    await fetch(`/api/comments/${eventId}`, {
-      body: JSON.stringify({ content, email, name }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+    try {
+      const response = await fetch(`/api/comments/${eventId}`, {
+        body: JSON.stringify({ content, email, name }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+
+      if (response.ok) {
+        show({ message: "", status: "success", title: "Success!" });
+      } else {
+        show({ message: "", status: "error", title: "Error!" });
+      }
+    } catch (error) {
+      show({ message: "", status: "error", title: "Error!" });
+    }
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit}
+      onChange={() => {
+        setIsError(false);
+      }}
+    >
       <div className={styles.row}>
         <div className={styles.control}>
           <label htmlFor="email">Your Email</label>
