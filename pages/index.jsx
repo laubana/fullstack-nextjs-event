@@ -1,6 +1,6 @@
-import EventList from "../components/EventList/EventList";
-import NewsLetterRegistration from "../components/NewsLetterRegistration/NewsLetterRegistration";
-import { getFeaturedEvents } from "../services/events";
+import EventList from "@components/EventList/EventList";
+import NewsLetterRegistration from "@components/NewsLetterRegistration/NewsLetterRegistration";
+import { getFeaturedEvents } from "@services/events";
 
 export const getStaticProps = async () => {
   const events = await getFeaturedEvents();

@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
+import connect from "@configs/db";
+import Registration from "@models/Registration";
 
-export default (req, res) => {
+export default async (req, res) => {
   try {
     if (req.method === "POST") {
       const { email } = req.body;
@@ -12,27 +12,21 @@ export default (req, res) => {
         return;
       }
 
-      const newRegistration = {
+      await connect();
+
+      const newRegistration = await Registration.create({
         email,
-      };
+      });
 
-      const filepath = path.join(process.cwd(), "db.json");
-      const file = fs.readFileSync(filepath);
-      const json = JSON.parse(file);
-      json.registrations.push(newRegistration);
-      fs.writeFileSync(filepath, JSON.stringify(json));
-
-      res
-        .status(201)
-        .json({
-          message: "Registration created successfully.",
-          registration: newRegistration,
-        });
+      res.status(201).json({
+        message: "Registration created successfully.",
+        data: newRegistration,
+      });
     } else {
       res.status(404).json({ message: "Not Found" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server Error!" });
+    res.status(500).json({ message: "Server Error" });
   }
 };

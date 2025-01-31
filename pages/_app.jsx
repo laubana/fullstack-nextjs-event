@@ -1,7 +1,9 @@
 import Head from "next/head";
-import Layout from "../components/Layout/Layout";
+
 import "../styles/globals.css";
-import ToastContextProvider from "../context/ToastContext";
+
+import Layout from "@components/Layout/Layout";
+import ToastContextProvider from "@context/ToastContext";
 
 export default ({ Component, pageProps }) => {
   return (

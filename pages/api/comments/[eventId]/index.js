@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
+import connect from "@configs/db";
+import Comment from "@models/Comment";
 
-export default (req, res) => {
+export default async (req, res) => {
   const { eventId } = req.query;
 
   try {
@@ -12,14 +12,11 @@ export default (req, res) => {
         return;
       }
 
-      const filepath = path.join(process.cwd(), "db.json");
-      const file = fs.readFileSync(filepath);
-      const json = JSON.parse(file);
-      const comments = json.comments.filter(
-        (comment) => comment.eventId === eventId
-      );
+      await connect();
 
-      res.status(200).json({ message: "", comments });
+      const existingComments = await Comment.find({ event: eventId }).lean();
+
+      res.status(200).json({ message: "", data: existingComments });
     } else if (req.method === "POST") {
       const { content, email, name } = req.body;
 
@@ -29,29 +26,23 @@ export default (req, res) => {
         return;
       }
 
-      const filepath = path.join(process.cwd(), "db.json");
-      const file = fs.readFileSync(filepath);
-      const json = JSON.parse(file);
+      await connect();
 
-      const comment = {
+      const newComment = await Comment.create({
         content,
         email,
-        eventId,
-        id: `c${json.comments.length + 1}`,
         name,
-      };
-
-      json.comments.push(comment);
-      fs.writeFileSync(filepath, JSON.stringify(json));
+        event: eventId,
+      });
 
       res
         .status(201)
-        .json({ message: "Comment created successfully.", comment });
+        .json({ message: "Comment created successfully.", data: newComment });
     } else {
       res.status(404).json({ message: "Not Found" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server Error!" });
+    res.status(500).json({ message: "Server Error" });
   }
 };

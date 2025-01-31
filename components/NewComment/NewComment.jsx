@@ -1,6 +1,8 @@
 import { useState } from "react";
+
 import styles from "./NewComment.module.css";
-import { useToastContext } from "../../context/ToastContext";
+
+import { useToastContext } from "@context/ToastContext";
 
 export default ({ eventId }) => {
   const { show } = useToastContext();

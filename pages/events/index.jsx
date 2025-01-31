@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import EventList from "../../components/EventList/EventList";
-import EventSearch from "../../components/EventsSearch/EventSearch";
-import { getAllEvents } from "../../services/events";
+
+import EventList from "@components/EventList/EventList";
+import EventSearch from "@components/EventsSearch/EventSearch";
+import { getAllEvents } from "@services/events";
 
 export const getStaticProps = async () => {
   const events = await getAllEvents();

@@ -1,29 +1,51 @@
 export const getAllEvents = async () => {
-  const response = await fetch("http://localhost:5000/events");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events`,
+    {
+      method: "GET",
+    }
+  );
+  const json = await response.json();
+  const data = json.data;
 
-  return await response.json();
+  return data;
 };
 
 export const getFeaturedEvents = async () => {
-  const response = await fetch("http://localhost:5000/events");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/featured-events`,
+    {
+      method: "GET",
+    }
+  );
+  const json = await response.json();
+  const data = json.data;
 
-  return (await response.json()).filter((event) => event.isFeatured === true);
+  return data;
 };
 
 export const getFilteredEvents = async ({ year, month }) => {
-  const response = await fetch("http://localhost:5000/events");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/filtered-events/${year}/${month}`,
+    {
+      method: "GET",
+    }
+  );
+  const json = await response.json();
+  const data = json.data;
 
-  return (await response.json()).filter((event) => {
-    const eventDate = new Date(event.date);
-
-    return (
-      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
-    );
-  });
+  return data;
 };
 
-export const getEventById = async (id) => {
-  const response = await fetch("http://localhost:5000/events");
+export const getEvent = async (eventId) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/event/${eventId}`,
+    {
+      method: "GET",
+    }
+  );
+  const json = await response.json();
+  const data = json.data;
 
-  return (await response.json()).find((event) => event.id === id);
+  return data;
 };

@@ -1,9 +1,11 @@
 import Image from "next/image";
-import styles from "./EventItem.module.css";
-import { convertDate } from "../../helpers/date";
-import Link from "../Link/Link";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoCalendarClearOutline, IoLocationOutline } from "react-icons/io5";
+
+import styles from "./EventItem.module.css";
+
+import Link from "@components/Link/Link";
+import { convertDate } from "@helpers/date";
 
 export default ({ event }) => {
   const address = event.location.replace(", ", "\n");
@@ -24,7 +26,7 @@ export default ({ event }) => {
           </div>
         </div>
         <div className={styles.actions}>
-          <Link url={`/events/${event.id}`}>
+          <Link url={`/events/${event._id}`}>
             <span>Explore Event</span>
             <span className={styles.icon}>
               <FaArrowRight />

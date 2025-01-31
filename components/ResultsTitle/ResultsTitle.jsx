@@ -1,6 +1,7 @@
-import { convertYearMonth } from "../../helpers/date";
-import Link from "../Link/Link";
 import styles from "./ResultsTitle.module.css";
+
+import Link from "@components/Link/Link";
+import { convertYearMonth } from "@helpers/date";
 
 function ResultsTitle({ date }) {
   return (

@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { IoCalendarClearOutline, IoLocationOutline } from "react-icons/io5";
+
 import styles from "./EventLogistics.module.css";
-import LogisticsItem from "../LogisticsItem/LogisticsItem";
-import { convertDate } from "../../helpers/date";
+
+import LogisticsItem from "@components/LogisticsItem/LogisticsItem";
+import { convertDate } from "@helpers/date";
 
 export default ({ event }) => {
   const address = event.location.replace(", ", "\n");

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+
 import styles from "./CommentList.module.css";
-import Loader from "../Loader/Loader";
+
+import Loader from "@components/Loader/Loader";
 
 export default ({ eventId }) => {
   const [comments, setComments] = useState();
@@ -12,7 +14,7 @@ export default ({ eventId }) => {
       });
       const data = await response.json();
 
-      setComments(data.comments);
+      setComments(data.data);
     };
     main();
   }, []);
@@ -24,7 +26,7 @@ export default ({ eventId }) => {
           {0 < comments.length ? (
             <ul className={styles.comments}>
               {comments.map((comment) => (
-                <li key={comment.id}>
+                <li key={comment._id}>
                   <p>{comment.content}</p>
                   <div>
                     By <address>{comment.name}</address>

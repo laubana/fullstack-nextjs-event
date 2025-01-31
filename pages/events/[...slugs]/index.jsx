@@ -2,10 +2,11 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import EventList from "../../../components/EventList/EventList";
-import Link from "../../../components/Link/Link";
-import Loader from "../../../components/Loader/Loader";
-import ResultsTitle from "../../../components/ResultsTitle/ResultsTitle";
+
+import EventList from "@components/EventList/EventList";
+import Link from "@components/Link/Link";
+import Loader from "@components/Loader/Loader";
+import ResultsTitle from "@components/ResultsTitle/ResultsTitle";
 
 export default () => {
   const router = useRouter();
@@ -13,10 +14,11 @@ export default () => {
   const slugs = router.query.slugs;
 
   const { data: eventsData, error: eventsError } = useSWR(
-    "http://localhost:5000/events",
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events`,
     async (...args) => {
       const response = await fetch(...args);
-      return await response.json();
+      const json = await response.json();
+      return json.data;
     }
   );
 

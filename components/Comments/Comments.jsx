@@ -1,7 +1,9 @@
 import { useState } from "react";
+
 import styles from "./Comments.module.css";
-import CommentList from "../CommentList/CommentList";
-import NewComment from "../NewComment/NewComment";
+
+import CommentList from "@components/CommentList/CommentList";
+import NewComment from "@components/NewComment/NewComment";
 
 export default ({ eventId }) => {
   const [isVisible, setIsVisible] = useState(false);

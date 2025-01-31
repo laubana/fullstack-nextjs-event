@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+
 import styles from "./Toast.module.css";
-import { useToastContext } from "../../context/ToastContext";
+
+import { useToastContext } from "@context/ToastContext";
 
 export default ({ title, message, status }) => {
   const { hide } = useToastContext();

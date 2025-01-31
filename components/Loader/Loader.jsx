@@ -1,4 +1,5 @@
 import { BeatLoader } from "react-spinners";
+
 import styles from "./Loader.module.css";
 
 export default () => {
