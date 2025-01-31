@@ -14,4 +14,14 @@ In the project directory, you can run:
 
 ## Takeaways
 
+### pages/[]
+
+### pages/[...]
+
 ### fetch
+
+### useSWR
+
+### getStaticProps
+
+### getStaticPaths
