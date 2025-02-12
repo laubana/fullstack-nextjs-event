@@ -12,7 +12,7 @@ export default ({ event }) => {
 
   return (
     <li className={styles.item}>
-      <Image src={event.image} alt={event.title} width={240} height={160} />
+      <Image src={event.imageUrl} alt={event.title} width={240} height={160} />
       <div className={styles.content}>
         <div className={styles.summary}>
           <h2>{event.title}</h2>
