@@ -1,4 +1,4 @@
-import connect from "@configs/db";
+import dbConfig from "@configs/dbConfig";
 import Registration from "@models/Registration";
 
 export default async (req, res) => {
@@ -12,7 +12,7 @@ export default async (req, res) => {
         return;
       }
 
-      await connect();
+      await dbConfig.connect();
 
       const newRegistration = await Registration.create({
         email,

@@ -1,6 +1,6 @@
 import styles from "./NewsLetterRegistration.module.css";
 
-import { useToastContext } from "@context/ToastContext";
+import { useToastContext } from "@contexts/ToastContext";
 
 export default () => {
   const { hide, show } = useToastContext();

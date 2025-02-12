@@ -18,7 +18,7 @@ export const getStaticProps = async (context) => {
     return { notFound: true };
   }
 
-  return { props: { event }, revalidate: 30 };
+  return { props: { event }, revalidate: 60 };
 };
 
 export const getStaticPaths = async () => {

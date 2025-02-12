@@ -5,7 +5,7 @@ import { getFeaturedEvents } from "@services/events";
 export const getStaticProps = async () => {
   const events = await getFeaturedEvents();
 
-  return { props: { events }, revalidate: 600 };
+  return { props: { events }, revalidate: 3600 };
 };
 
 export default ({ events }) => {

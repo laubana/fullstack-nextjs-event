@@ -3,7 +3,7 @@ import Head from "next/head";
 import "../styles/globals.css";
 
 import Layout from "@components/Layout/Layout";
-import ToastContextProvider from "@context/ToastContext";
+import ToastContextProvider from "@contexts/ToastContext";
 
 export default ({ Component, pageProps }) => {
   return (

@@ -1,4 +1,4 @@
-import connect from "@configs/db";
+import dbConfig from "@configs/dbConfig";
 import Comment from "@models/Comment";
 
 export default async (req, res) => {
@@ -12,26 +12,26 @@ export default async (req, res) => {
         return;
       }
 
-      await connect();
+      await dbConfig.connect();
 
       const existingComments = await Comment.find({ event: eventId }).lean();
 
       res.status(200).json({ message: "", data: existingComments });
     } else if (req.method === "POST") {
-      const { content, email, name } = req.body;
+      const { email, name, content } = req.body;
 
-      if (!content || !email || !email.includes("@") || !name) {
+      if (!email || !email.includes("@") || !name || !content) {
         res.status(400).json({ message: "Invalid Input" });
 
         return;
       }
 
-      await connect();
+      await dbConfig.connect();
 
       const newComment = await Comment.create({
-        content,
         email,
         name,
+        content,
         event: eventId,
       });
 
